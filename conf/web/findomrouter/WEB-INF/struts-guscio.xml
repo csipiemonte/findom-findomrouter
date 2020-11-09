@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--  *************************************************************************
+ * Copyright Regione Piemonte - 2020
+ * SPDX-License-Identifier: EUPL-1.2-or-later
+ *****************************************************************************  -->
+ <!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.ui.theme" value="csi" />
+
+	<package name="findomrouterPackageJSP" namespace="/" extends="jsp-package">
+		<!--  prima Azione invocata allo startup --> 
+ 		<action name="home"	class="it.csi.findom.findomrouter.presentation.action.HomeAction">
+			<result name="success">jsp/home.jsp</result>
+			<result name="monitoraggio">jsp/monitoraggio.jsp</result>
+			<result name="paramError">jsp/error/paramError.jsp</result>
+			<result name="error">jsp/error/error.jsp</result>
+			<result name="input">jsp/home.jsp</result>
+		</action>
+		
+		<action name="cercaDomande" class="it.csi.findom.findomrouter.presentation.action.CercaDomandeAction">
+			<result name="success">jsp/gestisciDomande.jsp</result>
+			<result name="input">jsp/gestisciDomande.jsp</result>
+			<result name="inputHome">jsp/home.jsp</result>
+			<result name="impresaDaConfermare">jsp/home.jsp</result>
+			<result name="impresaNonSuAAEP">jsp/home.jsp</result>
+			<result name="error">jsp/error/error.jsp</result>
+		</action>
+		
+		<!-- azione per visualizzare il Riepilogo di una domanda -->
+		<action name="riepilogoDomanda"  class="it.csi.findom.findomrouter.presentation.action.RiepilogoDomandaAction">
+			<result name="success">jsp/riepilogoDomanda.jsp</result>
+			<result name="successDemat">jsp/riepilogoDomandaDemat.jsp</result>
+			<result name="error" type="chain">cercaDomande</result>
+		</action>
+		
+		<!-- azione che resetta i filtri impostati nel form di ricerca proposte -->
+		<action name="annullaFiltri" class="it.csi.findom.findomrouter.presentation.action.CercaDomandeAction" method="annullaFiltri">
+			<result  name="success" type="chain">cercaDomande</result>
+			<result  name="error" type="chain">cercaDomande</result>
+			<result  name="none" >jsp/gestisciDomande.jsp</result>
+		</action>
+		
+			<!-- azione che resetta i filtri impostati nel form di inserimento nuova proposta -->
+		<action name="annullaFiltriNuovaDomanda" class="it.csi.findom.findomrouter.presentation.action.CercaDomandeAction" method="annullaFiltriNuovaDomanda">
+			<result  name="success" type="chain">cercaDomande</result>
+			<result  name="error" type="chain">cercaDomande</result>
+			<result  name="none" >jsp/gestisciDomande.jsp</result>
+		</action>
+
+		<action name="eliminaProposta" class="it.csi.findom.findomrouter.presentation.action.ConfermaDomandaAction" method="eliminaProposta">
+			<result name="elimina_success">jsp/conferma_eliminaDomanda.jsp</result>
+		</action>
+		
+		<action name="invalidaProposta" class="it.csi.findom.findomrouter.presentation.action.ConfermaDomandaAction" method="invalidaProposta">
+			<result name="invalida_success">jsp/conferma_invalidaDomanda.jsp</result>
+		</action>
+
+		<action name="inviaProposta" class="it.csi.findom.findomrouter.presentation.action.ConfermaDomandaAction" method="inviaProposta">
+			<result name="invia_success">jsp/conferma_inviaDomanda.jsp</result>
+		</action>
+
+		<action name="printPDFPropostaInviata" class="it.csi.findom.findomrouter.presentation.action.PrintPDFPropostaInviataAction">
+			<result name="success" type="stream">
+		        <param name="inputName">pdfStream</param>
+		        <param name="contentType">application/pdf</param>
+		        <param name="contentDisposition">${contentDisposition}</param>
+			</result>
+			<result name="error">jsp/error/error.jsp</result>
+		</action>
+		<!--action  name="printDomanda" class="it.csi.findom.findomrouter.presentation.action.PrintDomandaAction">
+			<result name="success" type="chain">printPDFPropostaInviata</result>
+			<result name="error">jsp/gestisciDomande.jsp</result>
+		</action-->
+
+		<!--  Azione per scaricare il pdf di una domanda INVIATA -->
+		<!--action name="printPDFPropostaInviata" class="it.csi.findom.findomrouter.presentation.action.LoadPDFPropostaInviataAction">
+			<result name="success" type="stream">
+		        <param name="inputName">pdfStream</param>
+		        <param name="contentType">application/pdf</param>
+		        <param name="contentDisposition">${contentDisposition}</param>
+			</result>
+			<result name="error">jsp/error/error.jsp</result>
+		</action-->
+
+<!--  ===================INIZIO BOTTONI ESCI-CAMBIA PROFILO=================== -->	
+		
+		<!-- azione scatenata dal mini form con i due bottoni ESCI e CAMBIA PROFILO -->
+		<!-- questa azione viene invocata se e solo se i JAVASCRIPT sono DISABILITATI -->
+		<!-- Se Javascript e' attivo ESCI chiama esci.do e CAMBIA PROFILO chiama cambiaProfilo.do -->
+		<action name="apriModaliProfilo" class="it.csi.findom.findomrouter.presentation.action.modali.ApriModaliProfiloAction">
+			<result name="esci">jsp/modali/conferma_logout.jsp</result>
+			<!-- <result name="cambiaProfilo">jsp/conferma_cambiaProfilo.jsp</result> -->
+		</action>
+		
+		<!-- azione che scatta quando l'utente pigia il bottone "esci" -->
+		<action name="esci" class="it.csi.findom.findomrouter.presentation.action.EsciAction">
+			<result>jsp/modali/conferma_logout.jsp</result>
+		</action>
+		
+		<!-- finestra modale di conferma cambio profilo -->
+		<action name="cambiaProfilo" class="it.csi.findom.findomrouter.presentation.action.CambiaProfiloAction">
+			<result name="monitoraggio">jsp/modali/conferma_cambiaProfilo.jsp</result>
+			<result>jsp/modali/conferma_cambiaProfilo.jsp</result>
+		</action>
+
+		<!-- LOGOUT (LOCAL/SSO)-->
+		<action name="confirmLogout" class="it.csi.findom.findomrouter.presentation.action.ConfirmLogoutAction">
+			<result name="confirmed" type="redirect">
+				<param name="location">@@LOGOUT_URL@@</param>
+			</result> 
+		</action>
+		
+		<!-- azione del cambia profilo post scelta nella modale -->
+		<action name="confermaCambiaProfilo" class="it.csi.findom.findomrouter.presentation.action.ConfermaCambiaProfilo">
+			<result name="monitoraggio" type="chain">home</result>
+			<result name="confirmed" type="chain">home</result>
+				
+			<!-- questo result non dovrebbe mai venir esegito, lo inserisco per garantire che in caso di problemi non ottenga un 404 --> 
+			<result name="notConfirmed" type="chain">home</result>
+		</action>
+
+		<action name="ricaricaHome" class="it.csi.findom.findomrouter.presentation.action.RicaricaHomeAction">
+			<result name="confirmed" type="chain">home</result>
+		</action>
+		
+<!--  ===================FINE BOTTONI ESCI-CAMBIA PROFILO=================== -->		
+
+	</package>
+
+</struts>

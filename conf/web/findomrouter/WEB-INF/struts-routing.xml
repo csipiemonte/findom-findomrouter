@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--  *************************************************************************
+ * Copyright Regione Piemonte - 2020
+ * SPDX-License-Identifier: EUPL-1.2-or-later
+ *****************************************************************************  -->
+ <!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.ui.theme" value="csi" />
+
+	<package name="routingPackageRoutingJSP" namespace="/" extends="jsp-package">
+		
+		<!-- Azione del form per creare una nuova domanda,  porta all'indice di una nuova domanda -->
+		<action name="createDomanda" class="it.csi.findom.findomrouter.presentation.action.CreateNewDomandaAction" method="verificaDomandeInviate">
+			<result name="error">jsp/error/error.jsp</result>
+			<result name="input">jsp/gestisciDomande.jsp</result>
+			<result name="success" type="chain">createDomandaRouting</result>
+			<result name="invia_success">jsp/gestisciDomande.jsp</result>
+		</action>
+
+		<action name="createDomandaRouting"	class="it.csi.findom.findomrouter.presentation.action.RoutingAction" method="createDomandaRouting">
+			<result name="error">jsp/error/error.jsp</result>
+			<result name="input">jsp/gestisciDomande.jsp</result>
+		</action>
+		
+		<!-- azione che elimina la domanda compilata dall'utente -->
+		<action name="eliminaPropostaRouting" class="it.csi.findom.findomrouter.presentation.action.RoutingAction" method="eliminaPropostaRouting">			
+			<result name="error">jsp/error/error.jsp</result>
+		</action>
+		
+		<!-- azione che invalida la domanda compilata dall'utente -->
+		<action name="invalidaPropostaRouting" class="it.csi.findom.findomrouter.presentation.action.RoutingAction" method="invalidaPropostaRouting">			
+			<result name="error">jsp/error/error.jsp</result>
+		</action>
+	
+		<!-- azione che invia la proposta compilate dall'utente -->
+		<action name="inviaPropostaRouting" class="it.csi.findom.findomrouter.presentation.action.RoutingAction" method="inviaPropostaRouting">			
+			<result name="error">jsp/error/error.jsp</result>
+		</action>
+
+		<action name="loadDomandaRouting"	class="it.csi.findom.findomrouter.presentation.action.RoutingAction" method="loadDomandaRouting">
+			<result name="error">jsp/error/error.jsp</result>
+			<result name="input">jsp/gestisciDomande.jsp</result>
+		</action>
+		<action name="printDomandaRouting"	class="it.csi.findom.findomrouter.presentation.action.RoutingAction" method="printDomandaRouting">
+			<result name="error">jsp/error/error.jsp</result>
+			<result name="input">jsp/gestisciDomande.jsp</result>
+		</action>
+<!-- DA ELIMINARE, spostata azione recupero PDF finale su azione printPDFPropostaInviata 
+		<action name="printPDFPropostaInviataRouting"	class="it.csi.findom.findomrouter.presentation.action.RoutingAction" method="printPDFPropostaInviataRouting">
+			<result name="error">jsp/error/error.jsp</result>
+			<result name="input">jsp/gestisciDomande.jsp</result>
+		</action>
+  -->
+		<action name="vaiUploadDocFirmatoRouting"	class="it.csi.findom.findomrouter.presentation.action.RoutingAction" method="vaiUploadDocFirmatoRouting">
+			<result name="error">jsp/error/error.jsp</result>
+			<result name="input">jsp/gestisciDomande.jsp</result>
+		</action>
+ 		<action name="cercaDomandeRouter" class="it.csi.findom.findomrouter.presentation.action.BackToRouterAction">
+			<!-- result name="success" type="chain">cercaDomande</result -->	
+			<result name="success" type="redirectAction">
+		 	   <param name="actionName">cercaDomande</param>
+			</result>
+			<result name="error">jsp/error/error.jsp</result>
+		</action>
+
+ 		<action name="cambiaProfiloRouter" class="it.csi.findom.findomrouter.presentation.action.BackToRouterAction">
+			<result name="success" type="chain">confermaCambiaProfilo</result>
+			<result name="error">jsp/error/error.jsp</result>
+		</action>
+ 		<action name="homeRouter" class="it.csi.findom.findomrouter.presentation.action.BackToRouterAction">
+			<result name="success" type="chain">home</result>
+			<result name="error">jsp/error/error.jsp</result>
+		</action>
+		<action name="inserisciDocumentiIntegrazioneRouter"	class="it.csi.findom.findomrouter.presentation.action.RoutingAction" method="vaiInserisciDocumentiIntegrazioneRouting">
+			<result name="error">jsp/error/error.jsp</result>
+			<result name="input">jsp/gestisciDomande.jsp</result>
+		</action>
+
+	</package>
+
+</struts>

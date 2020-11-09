@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  *************************************************************************
+ * Copyright Regione Piemonte - 2020
+ * SPDX-License-Identifier: EUPL-1.2-or-later
+ *****************************************************************************  -->
+
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="ehcache.xsd"
+         updateCheck="true" 
+         monitoring="autodetect"
+         dynamicConfig="true">
+
+    
+    <diskStore path="java.io.tmpdir"/>
+    
+   
+    <defaultCache name="cache-default-findom-findomrouter"
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            overflowToDisk="true"
+            diskSpoolBufferSizeMB="30"
+            maxElementsOnDisk="10000000"
+            diskPersistent="false"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU"
+            />
+            
+    <!-- Cache anagrafiche 1 day -->
+    
+    <cache name="cache-anagrafiche-findom-findomrouter"
+	       maxElementsInMemory="10000"
+           maxElementsOnDisk="10000"
+           eternal="false"
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="20"
+           timeToIdleSeconds="86400"
+           timeToLiveSeconds="86400"
+           memoryStoreEvictionPolicy="LFU"
+           transactionalMode="off">
+      
+	 </cache>        
+   
+</ehcache>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  *************************************************************************
+ * Copyright Regione Piemonte - 2020
+ * SPDX-License-Identifier: EUPL-1.2-or-later
+ *****************************************************************************  -->
+ <beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+  	
+  	<bean id="layoutInclude" class="it.csi.findom.findomrouter.presentation.vo.LayoutInclude" >
+  		
+  		<property name="portalHeader"               value="@portalHeader@" />
+  		<property name="portalHead"                 value="@portalHead@" />
+  		<property name="applicationHeader"          value="@applicationHeader@" />
+  		<property name="applicationLinkHelpContact" value="@applicationLinkHelpContact@" />
+  		<property name="portalFooter"               value="@portalFooter@" />
+  		
+  	</bean>
+</beans>
+	

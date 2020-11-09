@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--  *************************************************************************
+ * Copyright Regione Piemonte - 2020
+ * SPDX-License-Identifier: EUPL-1.2-or-later
+ *****************************************************************************  -->
+ <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.ui.theme" value="csi" />
+	<constant name="struts.action.extension" value="do" />
+	<constant name="struts.objectFactory" value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+  	<constant name="struts.devMode" value="false" />
+	
+	<constant name="struts.multipart.parser" value="org.apache.struts2.dispatcher.multipart.JakartaMultiPartRequest" />
+	<!-- costanti per il fileUpload interceptor: settare solo se necessarie -->
+	<constant name="struts.multipart.maxSize" value="5242880" /> <!--  somma dell'intera request; 2097152=2Mb;  10485760=10Mb; 5242880=5Mb -->	
+	<!-- constant name="struts.multipart.saveDir" value="/tmp" /-->
+	
+	<package name="jsp-package" extends="struts-default">
+		<interceptors>
+		
+		<interceptor name="xss" class="it.csi.findom.findomrouter.presentation.interceptor.XssInterceptor" />
+
+			<interceptor-stack name="jsp-stack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="chain" />
+				<interceptor-ref name="servlet-config" />
+				<interceptor-ref name="static-params" />
+				<interceptor-ref name="fileUpload">
+					<!-- FUNZIONA nel senso che non permette upload di Types vietati ma 
+					     NON FUNZIONA nel senso che :::: CaricaFilesAction.Validate ha getActionErrors vuoto
+					     quindi non scrive gli errori a video e la pagina rimane vuota -->
+					<!--  
+					<param name="allowedTypes">
+						image/jpeg,
+						image/gif,
+						text/plain,
+			            application/pdf,
+			            application/word,
+			            application/msword,             
+			            application/vnd.ms-excel,
+			            application/msexcel
+			        </param>
+					<param name="maximumSize">2097152</param>
+					-->
+					<!-- param name="allowedExtensions">pdf,xls,doc,docx,xlsx,txt</param --> <!-- NON sembra param valido -->
+				</interceptor-ref>
+				<interceptor-ref name="params" />
+				<interceptor-ref name="xss" />
+				<interceptor-ref name="prepare" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">back,cancel</param>
+				</interceptor-ref>
+				<interceptor-ref name="workflow">
+					<param name="excludeMethods">back,cancel</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="jsp-stack" />
+		
+		<global-results>
+			<result name="errorFatal">/jsp/error/error.jsp</result>
+			<result name="errorRuntime">/jsp/error/failure.jsp</result>
+			<result name="sessionError">/jsp/error/sessionError.jsp</result>
+		</global-results>
+         
+         <global-exception-mappings>
+			<exception-mapping exception="org.apache.commons.fileupload.FileUploadBase$SizeLimitExceededException" result="upload_error"/>
+			<exception-mapping exception="java.lang.Throwable" result="error" />
+			<exception-mapping result="errorFatal"	exception="java.lang.Throwable" />
+			<exception-mapping result="errorRuntime" exception="java.lang.RuntimeException" />
+		 	<exception-mapping result="errorFatal" exception="java.lang.NullPointerException" /> 
+		</global-exception-mappings>
+		 
+	</package>
+
+<!-- DEFAULT PACKAGE (ELEMENTI COMUNI A TUTTO L'APPLICATIVO) 
+	<package name="default" extends="jsp-package" namespace="/base">
+		<action name="notFoundError">
+			<result>/jsp/error/notFound.jsp</result>
+		</action>
+		<action name="fatalError">
+			<result>/jsp/error/fatalError.jsp</result>
+		</action>
+		<action name="sessionExpired">
+			<result>/jsp/error/sessionExpired.jsp</result>
+		</action>
+		<action name="javascriptError">
+			<result>/jsp/error/javascriptError.jsp</result>
+		</action>
+	</package>
+	-->
+	
+</struts>

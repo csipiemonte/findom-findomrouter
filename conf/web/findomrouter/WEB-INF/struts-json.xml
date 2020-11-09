@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--  *************************************************************************
+ * Copyright Regione Piemonte - 2020
+ * SPDX-License-Identifier: EUPL-1.2-or-later
+ *****************************************************************************  -->
+ <!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.ui.theme" value="csi" />
+
+	<package name="json" extends="json-default">
+		
+		<!-- action legate al change delle combo del form di ricerca delle domande -->
+		
+		<action name="changeAreaTematicaJSON" class="it.csi.findom.findomrouter.presentation.action.json.ChangeComboSearchAction">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="changeNormativaJSON" class="it.csi.findom.findomrouter.presentation.action.json.ChangeComboSearchAction">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="changeDescrBreveJSON" class="it.csi.findom.findomrouter.presentation.action.json.ChangeComboSearchAction">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="changeBandoJSON" class="it.csi.findom.findomrouter.presentation.action.json.ChangeComboSearchAction">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<!-- action legate al change delle combo del form di inserimento di una nuova domanda -->
+		
+		<action name="changeAreaTematicaInsJSON" class="it.csi.findom.findomrouter.presentation.action.json.ChangeComboInsAction">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="changeNormativaInsJSON" class="it.csi.findom.findomrouter.presentation.action.json.ChangeComboInsAction">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="changeDescrBreveInsJSON" class="it.csi.findom.findomrouter.presentation.action.json.ChangeComboInsAction">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="changeBandoInsJSON" class="it.csi.findom.findomrouter.presentation.action.json.ChangeComboInsAction">
+			<result name="success" type="json"></result>
+		</action>
+		
+	</package>
+	
+</struts>

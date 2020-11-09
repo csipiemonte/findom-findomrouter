@@ -1,0 +1,1560 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="OrchestratoreImplService" targetNamespace="http://business.aaeporch.aaep.csi.it/" xmlns:ns1="http://cxf.apache.org/bindings/xformat" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://business.aaeporch.aaep.csi.it/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://business.aaeporch.aaep.csi.it/" xmlns:tns="http://business.aaeporch.aaep.csi.it/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:complexType name="utente">
+<xs:sequence>
+<xs:element minOccurs="0" name="codiceFiscaleUtente" type="xs:string" />
+<xs:element minOccurs="0" name="cognomeUtente" type="xs:string" />
+<xs:element minOccurs="0" name="idUtente" type="xs:string" />
+<xs:element minOccurs="0" name="nomeUtente" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="attivitaEconomica">
+<xs:sequence>
+<xs:element minOccurs="0" name="annoDiRiferimento" type="xs:string" />
+<xs:element minOccurs="0" name="codImportanzaAA" type="xs:string" />
+<xs:element minOccurs="0" name="codImportanzaRI" type="xs:string" />
+<xs:element minOccurs="0" name="codiceATECO" type="xs:string" />
+<xs:element minOccurs="0" name="dataCessazione" type="xs:string" />
+<xs:element minOccurs="0" name="dataInizio" type="xs:string" />
+<xs:element minOccurs="0" name="descrImportanzaAA" type="xs:string" />
+<xs:element minOccurs="0" name="descrImportanzaRI" type="xs:string" />
+<xs:element minOccurs="0" name="descrizione" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="regione">
+<xs:sequence>
+<xs:element minOccurs="0" name="codIstat" type="xs:string" />
+<xs:element minOccurs="0" name="descrizione" type="xs:string" />
+<xs:element minOccurs="0" name="nazione" type="tns:nazione" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="nazione">
+<xs:sequence>
+<xs:element minOccurs="0" name="codice" type="xs:string" />
+<xs:element minOccurs="0" name="descrizione" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="persona">
+<xs:sequence>
+<xs:element minOccurs="0" name="codiceFiscale" type="xs:string" />
+<xs:element minOccurs="0" name="cognome" type="xs:string" />
+<xs:element minOccurs="0" name="descrTipoPersona" type="xs:string" />
+<xs:element minOccurs="0" name="idAzienda" type="xs:string" />
+<xs:element minOccurs="0" name="idFonteDato" type="xs:string" />
+<xs:element minOccurs="0" name="idPersona" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="listaCariche" nillable="true" type="tns:carica" />
+<xs:element minOccurs="0" name="nome" type="xs:string" />
+<xs:element minOccurs="0" name="tipoPersona" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="carica">
+<xs:sequence>
+<xs:element minOccurs="0" name="codCarica" type="xs:string" />
+<xs:element minOccurs="0" name="codDurataCarica" type="xs:string" />
+<xs:element minOccurs="0" name="codFiscaleAzienda" type="xs:string" />
+<xs:element minOccurs="0" name="codFiscalePersona" type="xs:string" />
+<xs:element minOccurs="0" name="dataFineCarica" type="xs:string" />
+<xs:element minOccurs="0" name="dataInizioCarica" type="xs:string" />
+<xs:element minOccurs="0" name="dataPresentazCarica" type="xs:string" />
+<xs:element minOccurs="0" name="descrAzienda" type="xs:string" />
+<xs:element minOccurs="0" name="descrCarica" type="xs:string" />
+<xs:element minOccurs="0" name="descrDurataCarica" type="xs:string" />
+<xs:element minOccurs="0" name="flagRappresentanteLegale" type="xs:string" />
+<xs:element minOccurs="0" name="idAzienda" type="xs:string" />
+<xs:element minOccurs="0" name="idFonteDato" type="xs:string" />
+<xs:element minOccurs="0" name="numAnniEsercCarica" type="xs:string" />
+<xs:element minOccurs="0" name="progrCarica" type="xs:string" />
+<xs:element minOccurs="0" name="progrPersona" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="personaINFOC">
+<xs:complexContent>
+<xs:extension base="tns:persona">
+<xs:sequence>
+<xs:element minOccurs="0" name="altreIndicazResid" type="xs:string" />
+<xs:element minOccurs="0" name="altreInfoSedeSP" type="xs:string" />
+<xs:element minOccurs="0" name="capResidenza" type="xs:string" />
+<xs:element minOccurs="0" name="capSedeSP" type="xs:string" />
+<xs:element minOccurs="0" name="codCittadinanza" type="xs:string" />
+<xs:element minOccurs="0" name="codComuneNascita" type="xs:string" />
+<xs:element minOccurs="0" name="codComuneRes" type="xs:string" />
+<xs:element minOccurs="0" name="codComuneSedeSP" type="xs:string" />
+<xs:element minOccurs="0" name="codFiscaleSP" type="xs:string" />
+<xs:element minOccurs="0" name="codLimitazCapacitaAgire" type="xs:string" />
+<xs:element minOccurs="0" name="codStatoNascita" type="xs:string" />
+<xs:element minOccurs="0" name="codStatoRes" type="xs:string" />
+<xs:element minOccurs="0" name="codStatoSedeSP" type="xs:string" />
+<xs:element minOccurs="0" name="codToponimoResid" type="xs:string" />
+<xs:element minOccurs="0" name="codToponimoSedeSP" type="xs:string" />
+<xs:element minOccurs="0" name="dataCostSP" type="xs:string" />
+<xs:element minOccurs="0" name="dataNascita" type="xs:string" />
+<xs:element minOccurs="0" name="denominazSP" type="xs:string" />
+<xs:element minOccurs="0" name="descrCittadinanza" type="xs:string" />
+<xs:element minOccurs="0" name="descrComuneNascita" type="xs:string" />
+<xs:element minOccurs="0" name="descrComuneRes" type="xs:string" />
+<xs:element minOccurs="0" name="descrComuneSedeSP" type="xs:string" />
+<xs:element minOccurs="0" name="descrFlagElettore" type="xs:string" />
+<xs:element minOccurs="0" name="descrFrazioneRes" type="xs:string" />
+<xs:element minOccurs="0" name="descrIndicatoriPotereF" type="xs:string" />
+<xs:element minOccurs="0" name="descrStatoNascita" type="xs:string" />
+<xs:element minOccurs="0" name="descrStatoRes" type="xs:string" />
+<xs:element minOccurs="0" name="descrStatoSedeSP" type="xs:string" />
+<xs:element minOccurs="0" name="descrToponimoResid" type="xs:string" />
+<xs:element minOccurs="0" name="descrToponimoSedeSP" type="xs:string" />
+<xs:element minOccurs="0" name="fax" type="xs:string" />
+<xs:element minOccurs="0" name="flagElettore" type="xs:string" />
+<xs:element minOccurs="0" name="frazioneSP" type="xs:string" />
+<xs:element minOccurs="0" name="indicPoteriFirma" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="listaFallimenti" nillable="true" type="tns:fallimento" />
+<xs:element minOccurs="0" name="numCivicoResid" type="xs:string" />
+<xs:element minOccurs="0" name="numCivicoSedeSP" type="xs:string" />
+<xs:element minOccurs="0" name="numIscrReaSocParif" type="xs:string" />
+<xs:element minOccurs="0" name="numRISocParif" type="xs:string" />
+<xs:element minOccurs="0" name="numTelefono" type="xs:string" />
+<xs:element minOccurs="0" name="percentPartecip" type="xs:string" />
+<xs:element minOccurs="0" name="progrOrdineVisura" type="xs:string" />
+<xs:element minOccurs="0" name="progrUnitaLocale" type="xs:string" />
+<xs:element minOccurs="0" name="quotaPartecipaz" type="xs:string" />
+<xs:element minOccurs="0" name="quotaPartecipazEuro" type="xs:string" />
+<xs:element minOccurs="0" name="sesso" type="xs:string" />
+<xs:element minOccurs="0" name="siglaCCIAASocParif" type="xs:string" />
+<xs:element minOccurs="0" name="siglaProvNascita" type="xs:string" />
+<xs:element minOccurs="0" name="siglaProvResidenza" type="xs:string" />
+<xs:element minOccurs="0" name="siglaProvSedeSP" type="xs:string" />
+<xs:element minOccurs="0" name="valutaPartecip" type="xs:string" />
+<xs:element minOccurs="0" name="viaResidenza" type="xs:string" />
+<xs:element minOccurs="0" name="viaSedeSP" type="xs:string" />
+<xs:element minOccurs="0" name="eMail" type="xs:string" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="fallimento">
+<xs:sequence>
+<xs:element minOccurs="0" name="codOrganoGiudiz" type="xs:string" />
+<xs:element minOccurs="0" name="curatoreFallim" type="xs:string" />
+<xs:element minOccurs="0" name="dataChiusuraFallim" type="xs:string" />
+<xs:element minOccurs="0" name="dataFallimento" type="xs:string" />
+<xs:element minOccurs="0" name="dataNascPersCausaSF" type="xs:string" />
+<xs:element minOccurs="0" name="dataSentenza" type="xs:string" />
+<xs:element minOccurs="0" name="denomSoggCausaFallim" type="xs:string" />
+<xs:element minOccurs="0" name="descrOrganoGiudiz" type="xs:string" />
+<xs:element minOccurs="0" name="descrProvTribunFallim" type="xs:string" />
+<xs:element minOccurs="0" name="idAzienda" type="xs:string" />
+<xs:element minOccurs="0" name="idFallimento" type="xs:string" />
+<xs:element minOccurs="0" name="idFonteDato" type="xs:string" />
+<xs:element minOccurs="0" name="idPersona" type="xs:string" />
+<xs:element minOccurs="0" name="nomePersSoggCausaFallim" type="xs:string" />
+<xs:element minOccurs="0" name="numFallimento" type="xs:string" />
+<xs:element minOccurs="0" name="numSentenzaFallim" type="xs:string" />
+<xs:element minOccurs="0" name="siglaProvTrinunFallim" type="xs:string" />
+<xs:element minOccurs="0" name="tribunaleFallim" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="personaINFOCListItem">
+<xs:complexContent>
+<xs:extension base="tns:persona">
+<xs:sequence>
+<xs:element minOccurs="0" name="ragSocSP" type="xs:string" />
+<xs:element minOccurs="0" name="ruoloRL" type="xs:string" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="referenteSILP">
+<xs:complexContent>
+<xs:extension base="tns:persona">
+<xs:sequence>
+<xs:element minOccurs="0" name="contatti" type="tns:contatti" />
+<xs:element minOccurs="0" name="dataAggiornamento" type="xs:string" />
+<xs:element minOccurs="0" name="dataAggiornamentoSILP" type="xs:string" />
+<xs:element minOccurs="0" name="ruolo" type="xs:string" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="contatti">
+<xs:sequence>
+<xs:element minOccurs="0" name="email" type="xs:string" />
+<xs:element minOccurs="0" name="fax" type="xs:string" />
+<xs:element minOccurs="0" name="numeroVerde" type="xs:string" />
+<xs:element minOccurs="0" name="sitoWeb" type="xs:string" />
+<xs:element minOccurs="0" name="telefono" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="variazioneAnagrafica">
+<xs:sequence>
+<xs:element minOccurs="0" name="cciaa" type="tns:dettagliCameraCommercio" />
+<xs:element minOccurs="0" name="codiceCausaleCessazione" type="xs:string" />
+<xs:element minOccurs="0" name="codiceFiscale" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="codiciATECO" nillable="true" type="tns:attivitaEconomica" />
+<xs:element minOccurs="0" name="dataCessazione" type="xs:string" />
+<xs:element minOccurs="0" name="dataCostituzione" type="xs:string" />
+<xs:element minOccurs="0" name="dataFineValidita" type="xs:string" />
+<xs:element minOccurs="0" name="dataInizioValidita" type="xs:string" />
+<xs:element minOccurs="0" name="denominazione" type="xs:string" />
+<xs:element minOccurs="0" name="descrIscrSezArtigiani" type="xs:string" />
+<xs:element minOccurs="0" name="descrizioneCausaleCessazione" type="xs:string" />
+<xs:element minOccurs="0" name="descrizioneFontedato" type="xs:string" />
+<xs:element minOccurs="0" name="descrizioneNaturaGiuridica" type="xs:string" />
+<xs:element minOccurs="0" name="descrizioneStatoAttiv" type="xs:string" />
+<xs:element minOccurs="0" name="descrizioneTipoAzienda" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="dettagliVariazioniAnagrafiche" nillable="true" type="tns:dettaglioVariazioneAnagrafica" />
+<xs:element minOccurs="0" name="idAzienda" type="xs:string" />
+<xs:element minOccurs="0" name="idFonte" type="xs:string" />
+<xs:element minOccurs="0" name="idNaturaGiuridica" type="xs:string" />
+<xs:element minOccurs="0" name="idStatoAttiv" type="xs:string" />
+<xs:element minOccurs="0" name="idTipoAzienda" type="xs:string" />
+<xs:element minOccurs="0" name="iscrSezArtigiani" type="xs:boolean" />
+<xs:element minOccurs="0" name="oggettoSociale" type="xs:string" />
+<xs:element minOccurs="0" name="partitaIva" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="dettagliCameraCommercio">
+<xs:sequence>
+<xs:element minOccurs="0" name="anno" type="xs:string" />
+<xs:element minOccurs="0" name="dataAggiornamento" type="xs:string" />
+<xs:element minOccurs="0" name="dataCancellazioneREA" type="xs:string" />
+<xs:element minOccurs="0" name="dataIscrizioneREA" type="xs:string" />
+<xs:element minOccurs="0" name="dataIscrizioneRegistroImprese" type="xs:string" />
+<xs:element minOccurs="0" name="numIscrizionePosizioneREA" type="xs:string" />
+<xs:element minOccurs="0" name="numRegistroImprese" type="xs:string" />
+<xs:element minOccurs="0" name="numero" type="xs:string" />
+<xs:element minOccurs="0" name="provincia" type="xs:string" />
+<xs:element minOccurs="0" name="siglaProvincia" type="xs:string" />
+<xs:element minOccurs="0" name="siglaProvinciaIscrizioneREA" type="xs:string" />
+<xs:element minOccurs="0" name="tribunale" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="dettaglioVariazioneAnagrafica">
+<xs:sequence>
+<xs:element minOccurs="0" name="dataVariaz" type="xs:string" />
+<xs:element minOccurs="0" name="descrizioneNewIdFonteDato" type="xs:string" />
+<xs:element minOccurs="0" name="descrizioneOldIdFonteDato" type="xs:string" />
+<xs:element minOccurs="0" name="descrizioneTipoVariazione" type="xs:string" />
+<xs:element minOccurs="0" name="idAzienda" type="xs:string" />
+<xs:element name="idTipoVariazione" type="xs:long" />
+<xs:element minOccurs="0" name="newDenominazione" type="xs:string" />
+<xs:element minOccurs="0" name="newDescrizioneNaturaGiuridica" type="xs:string" />
+<xs:element minOccurs="0" name="newDescrizioneStatoAttiv" type="xs:string" />
+<xs:element name="newIdFonteDato" type="xs:long" />
+<xs:element minOccurs="0" name="newIdNaturaGiuridica" type="xs:string" />
+<xs:element minOccurs="0" name="newIdStatoAttiv" type="xs:string" />
+<xs:element minOccurs="0" name="oldDenominazione" type="xs:string" />
+<xs:element minOccurs="0" name="oldDescrizioneNaturaGiuridica" type="xs:string" />
+<xs:element minOccurs="0" name="oldDescrizioneStatoAttiv" type="xs:string" />
+<xs:element name="oldIdFonteDato" type="xs:long" />
+<xs:element minOccurs="0" name="oldIdNaturaGiuridica" type="xs:string" />
+<xs:element minOccurs="0" name="oldIdStatoAttiv" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="impresa">
+<xs:sequence>
+<xs:element minOccurs="0" name="cessazione" type="tns:cessazione" />
+<xs:element minOccurs="0" name="codNaturaGiuridica" type="xs:string" />
+<xs:element minOccurs="0" name="codiceFiscale" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="codiciATECO" nillable="true" type="tns:attivitaEconomica" />
+<xs:element minOccurs="0" name="dataAggiornamento" type="xs:string" />
+<xs:element minOccurs="0" name="dataInizioValidita" type="xs:string" />
+<xs:element minOccurs="0" name="descrFonte" type="xs:string" />
+<xs:element minOccurs="0" name="descrNaturaGiuridica" type="xs:string" />
+<xs:element minOccurs="0" name="dettagliAlboArtigiano" type="tns:dettagliAlboArtigiano" />
+<xs:element minOccurs="0" name="dettagliCameraCommercio" type="tns:dettagliCameraCommercio" />
+<xs:element minOccurs="0" name="idAzienda" type="xs:string" />
+<xs:element minOccurs="0" name="idFonte" type="xs:string" />
+<xs:element minOccurs="0" name="idNaturaGiuridica" type="xs:string" />
+<xs:element minOccurs="0" name="idSede" type="xs:string" />
+<xs:element minOccurs="0" name="partitaIva" type="xs:string" />
+<xs:element minOccurs="0" name="postaElettronicaCertificata" type="xs:string" />
+<xs:element minOccurs="0" name="ragioneSociale" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="sedi" nillable="true" type="tns:sede" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="cessazione">
+<xs:sequence>
+<xs:element minOccurs="0" name="cessazione" type="xs:boolean" />
+<xs:element minOccurs="0" name="codCausaleCessazione" type="xs:string" />
+<xs:element minOccurs="0" name="dataCessazione" type="xs:string" />
+<xs:element minOccurs="0" name="dataDenunciaCessazione" type="xs:string" />
+<xs:element minOccurs="0" name="descrCausaleCessazione" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="dettagliAlboArtigiano">
+<xs:sequence>
+<xs:element minOccurs="0" name="dataDeliberaIscrizione" type="xs:string" />
+<xs:element minOccurs="0" name="descrIterIscrizione" type="xs:string" />
+<xs:element minOccurs="0" name="flgIterIscrizione" type="xs:string" />
+<xs:element minOccurs="0" name="numeroIscrizione" type="xs:string" />
+<xs:element minOccurs="0" name="provinciaIscrizione" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="sede">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="ateco" nillable="true" type="tns:attivitaEconomica" />
+<xs:element minOccurs="0" name="codCausaleCessazione" type="xs:string" />
+<xs:element minOccurs="0" name="codSettore" type="xs:string" />
+<xs:element minOccurs="0" name="contatti" type="tns:contatti" />
+<xs:element minOccurs="0" name="dataAggiornam" type="xs:string" />
+<xs:element minOccurs="0" name="dataCessazione" type="xs:string" />
+<xs:element minOccurs="0" name="dataInizioAttivita" type="xs:string" />
+<xs:element minOccurs="0" name="dataInizioValidita" type="xs:string" />
+<xs:element minOccurs="0" name="dataNumeroDipendenti" type="xs:string" />
+<xs:element minOccurs="0" name="denominazione" type="xs:string" />
+<xs:element minOccurs="0" name="descrCausaleCessazione" type="xs:string" />
+<xs:element minOccurs="0" name="descrSettore" type="xs:string" />
+<xs:element minOccurs="0" name="descrTipoSede" type="xs:string" />
+<xs:element minOccurs="0" name="fonteDato" type="tns:tipologiaFonte" />
+<xs:element minOccurs="0" name="idAzienda" type="xs:string" />
+<xs:element minOccurs="0" name="idSede" type="xs:string" />
+<xs:element minOccurs="0" name="numeroDipendenti" type="xs:string" />
+<xs:element minOccurs="0" name="riferimento" type="xs:string" />
+<xs:element minOccurs="0" name="tipoSede" type="tns:tipologiaSede" />
+<xs:element minOccurs="0" name="ubicazione" type="tns:ubicazione" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ubicazione">
+<xs:sequence>
+<xs:element minOccurs="0" name="altreIndicazioni" type="xs:string" />
+<xs:element minOccurs="0" name="cap" type="xs:string" />
+<xs:element minOccurs="0" name="codCatastale" type="xs:string" />
+<xs:element minOccurs="0" name="codISTATComune" type="xs:string" />
+<xs:element minOccurs="0" name="codNazione" type="xs:string" />
+<xs:element minOccurs="0" name="codQuartiere" type="xs:string" />
+<xs:element minOccurs="0" name="coordinataX" type="xs:string" />
+<xs:element minOccurs="0" name="coordinataY" type="xs:string" />
+<xs:element minOccurs="0" name="descrComune" type="xs:string" />
+<xs:element minOccurs="0" name="descrizioneEstesa" type="xs:string" />
+<xs:element minOccurs="0" name="geometriaGJSON" type="xs:string" />
+<xs:element minOccurs="0" name="indirizzo" type="xs:string" />
+<xs:element minOccurs="0" name="nomeNazione" type="xs:string" />
+<xs:element minOccurs="0" name="numeroCivico" type="xs:string" />
+<xs:element minOccurs="0" name="siglaProvincia" type="xs:string" />
+<xs:element minOccurs="0" name="toponimo" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="sedeAAEP">
+<xs:complexContent>
+<xs:extension base="tns:sede">
+<xs:sequence>
+<xs:element minOccurs="0" name="codSedeInailComp" type="xs:string" />
+<xs:element minOccurs="0" name="descrizioneAttivitaSede" type="xs:string" />
+<xs:element minOccurs="0" name="siglaProvUL" type="xs:string" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="sedeFP">
+<xs:complexContent>
+<xs:extension base="tns:sede">
+<xs:sequence>
+<xs:element minOccurs="0" name="annoSettore" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="corsi" nillable="true" type="tns:corso" />
+<xs:element minOccurs="0" name="indirizzoAlternativo" type="xs:string" />
+<xs:element minOccurs="0" name="siglaSindacato" type="xs:string" />
+<xs:element minOccurs="0" name="unitaOperativa" type="xs:string" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="corso">
+<xs:sequence>
+<xs:element minOccurs="0" name="annoComparto" type="xs:string" />
+<xs:element minOccurs="0" name="annoGestione" type="xs:string" />
+<xs:element minOccurs="0" name="annoInizioCorso" type="xs:string" />
+<xs:element minOccurs="0" name="annoSettore" type="xs:string" />
+<xs:element minOccurs="0" name="codAzionePOR" type="xs:string" />
+<xs:element minOccurs="0" name="codCausaleSoppressione" type="xs:string" />
+<xs:element minOccurs="0" name="codComparto" type="xs:string" />
+<xs:element minOccurs="0" name="codDocRegionale" type="xs:string" />
+<xs:element minOccurs="0" name="codLineaInterventoPOR" type="xs:string" />
+<xs:element minOccurs="0" name="codMisuraPOR" type="xs:string" />
+<xs:element minOccurs="0" name="codSettore" type="xs:string" />
+<xs:element minOccurs="0" name="dataFineCorso" type="xs:string" />
+<xs:element minOccurs="0" name="dataInizioCorso" type="xs:string" />
+<xs:element minOccurs="0" name="denominazione" type="xs:string" />
+<xs:element minOccurs="0" name="descrAzionePOR" type="xs:string" />
+<xs:element minOccurs="0" name="descrCausaleSoppressione" type="xs:string" />
+<xs:element minOccurs="0" name="descrComparto" type="xs:string" />
+<xs:element minOccurs="0" name="descrDocRegionale" type="xs:string" />
+<xs:element minOccurs="0" name="descrLineaInterventoPOR" type="xs:string" />
+<xs:element minOccurs="0" name="descrMisuraPOR" type="xs:string" />
+<xs:element minOccurs="0" name="descrSettore" type="xs:string" />
+<xs:element minOccurs="0" name="numTotPartiIter" type="xs:string" />
+<xs:element minOccurs="0" name="numeroAllievi" type="xs:string" />
+<xs:element minOccurs="0" name="orePratica" type="xs:string" />
+<xs:element minOccurs="0" name="oreStage" type="xs:string" />
+<xs:element minOccurs="0" name="oreTeoria" type="xs:string" />
+<xs:element minOccurs="0" name="parteIterAttuale" type="xs:string" />
+<xs:element minOccurs="0" name="progrAccorpamento" type="xs:string" />
+<xs:element minOccurs="0" name="progrCorso" type="xs:string" />
+<xs:element minOccurs="0" name="sede" type="tns:sedeOccasionale" />
+<xs:element minOccurs="0" name="statoAvanzam" type="xs:string" />
+<xs:element minOccurs="0" name="tipoAttivita" type="xs:string" />
+<xs:element minOccurs="0" name="tipoEntita" type="xs:string" />
+<xs:element minOccurs="0" name="totaleOreIter" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="destinatari" nillable="true" type="tns:genericListItem" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="indirizzi" nillable="true" type="tns:genericListItem" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="sedeOccasionale">
+<xs:complexContent>
+<xs:extension base="tns:sede">
+<xs:sequence />
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="genericListItem">
+<xs:sequence>
+<xs:element minOccurs="0" name="descrizione" type="xs:string" />
+<xs:element minOccurs="0" name="priorita" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="sedeINFOC">
+<xs:complexContent>
+<xs:extension base="tns:sede">
+<xs:sequence>
+<xs:element minOccurs="0" name="altreIndcazUL" type="xs:string" />
+<xs:element minOccurs="0" name="codStradarioUL" type="xs:string" />
+<xs:element minOccurs="0" name="codTipoUL1" type="xs:string" />
+<xs:element minOccurs="0" name="codTipoUL2" type="xs:string" />
+<xs:element minOccurs="0" name="codTipoUL3" type="xs:string" />
+<xs:element minOccurs="0" name="codTipoUL4" type="xs:string" />
+<xs:element minOccurs="0" name="codTipoUL5" type="xs:string" />
+<xs:element minOccurs="0" name="dataDenuncia" type="xs:string" />
+<xs:element minOccurs="0" name="dataDenunciaCessaz" type="xs:string" />
+<xs:element minOccurs="0" name="descrStradarioUL" type="xs:string" />
+<xs:element minOccurs="0" name="descrTipoUL1" type="xs:string" />
+<xs:element minOccurs="0" name="descrTipoUL2" type="xs:string" />
+<xs:element minOccurs="0" name="descrTipoUL3" type="xs:string" />
+<xs:element minOccurs="0" name="descrTipoUL4" type="xs:string" />
+<xs:element minOccurs="0" name="descrTipoUL5" type="xs:string" />
+<xs:element minOccurs="0" name="frazioneUL" type="xs:string" />
+<xs:element minOccurs="0" name="insegnaUL" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="listaAlboArtg" nillable="true" type="tns:alboRuolo" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="listaAlboRuolo" nillable="true" type="tns:alboRuolo" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="listaDenunciaAttivita" nillable="true" type="tns:denunciaAttivita" />
+<xs:element minOccurs="0" name="numIscrizREA" type="xs:string" />
+<xs:element minOccurs="0" name="numReaFuoriProv" type="xs:string" />
+<xs:element minOccurs="0" name="siglaProvCCIAA" type="xs:string" />
+<xs:element minOccurs="0" name="superfVendita" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="testoAttivita" nillable="true" type="xs:string" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="alboRuolo">
+<xs:sequence>
+<xs:element minOccurs="0" name="codAlbo" type="xs:string" />
+<xs:element minOccurs="0" name="codCausaleCessaz" type="xs:string" />
+<xs:element minOccurs="0" name="codEnte" type="xs:string" />
+<xs:element minOccurs="0" name="codFormaRuolo" type="xs:string" />
+<xs:element minOccurs="0" name="codTipoRuolo" type="xs:string" />
+<xs:element minOccurs="0" name="codTipologiaRuolo" type="xs:string" />
+<xs:element minOccurs="0" name="dataCessazRuolo" type="xs:string" />
+<xs:element minOccurs="0" name="dataDelibCessazRuolo" type="xs:string" />
+<xs:element minOccurs="0" name="dataDeliberaRuolo" type="xs:string" />
+<xs:element minOccurs="0" name="dataDomandaCessazione" type="xs:string" />
+<xs:element minOccurs="0" name="dataDomandaIscrRuolo" type="xs:string" />
+<xs:element minOccurs="0" name="dataInizioAttivita" type="xs:string" />
+<xs:element minOccurs="0" name="descrAlbo" type="xs:string" />
+<xs:element minOccurs="0" name="descrCessaz" type="xs:string" />
+<xs:element minOccurs="0" name="descrEnte" type="xs:string" />
+<xs:element minOccurs="0" name="descrFormaRuolo" type="xs:string" />
+<xs:element minOccurs="0" name="descrTipoRuolo" type="xs:string" />
+<xs:element minOccurs="0" name="idRuolo" type="xs:string" />
+<xs:element minOccurs="0" name="numRuolo" type="xs:string" />
+<xs:element minOccurs="0" name="siglaProvRuolo" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="denunciaAttivita">
+<xs:sequence>
+<xs:element minOccurs="0" name="codiceEnte" type="xs:string" />
+<xs:element minOccurs="0" name="dataDenunciaInizioAttivita" type="xs:string" />
+<xs:element minOccurs="0" name="descrEnte" type="xs:string" />
+<xs:element minOccurs="0" name="idDenuncia" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="sedeFonteINFOC">
+<xs:complexContent>
+<xs:extension base="tns:sede">
+<xs:sequence>
+<xs:element minOccurs="0" name="codCausaleCessazioneREA" type="xs:string" />
+<xs:element minOccurs="0" name="dataCancREA" type="xs:string" />
+<xs:element minOccurs="0" name="dataCessazioneREA" type="xs:string" />
+<xs:element minOccurs="0" name="dataDenunciaCessazione" type="xs:string" />
+<xs:element minOccurs="0" name="dataDenunciaCessazioneREA" type="xs:string" />
+<xs:element minOccurs="0" name="descrCausaleCessazioneREA" type="xs:string" />
+<xs:element minOccurs="0" name="descrStatoEstero" type="xs:string" />
+<xs:element minOccurs="0" name="localita" type="xs:string" />
+<xs:element minOccurs="0" name="numIscrizREA" type="xs:string" />
+<xs:element minOccurs="0" name="siglaProv" type="xs:string" />
+<xs:element minOccurs="0" name="siglaProvCCIAA" type="xs:string" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="sedeListItem">
+<xs:complexContent>
+<xs:extension base="tns:sede">
+<xs:sequence>
+<xs:element minOccurs="0" name="descrStatoEstero" type="xs:string" />
+<xs:element minOccurs="0" name="localita" type="xs:string" />
+<xs:element minOccurs="0" name="numIscrizREA" type="xs:string" />
+<xs:element minOccurs="0" name="siglaProv" type="xs:string" />
+<xs:element minOccurs="0" name="siglaProvCCIAA" type="xs:string" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="sedeSILP">
+<xs:complexContent>
+<xs:extension base="tns:sede">
+<xs:sequence>
+<xs:element minOccurs="0" name="codCPI" type="xs:string" />
+<xs:element minOccurs="0" name="codClasseAmpiezza" type="xs:string" />
+<xs:element minOccurs="0" name="codINAIL" type="xs:string" />
+<xs:element minOccurs="0" name="codINPS" type="xs:string" />
+<xs:element minOccurs="0" name="codStatoSede" type="xs:string" />
+<xs:element minOccurs="0" name="codTipoSedeAAEP" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="codiciATECOSILP" nillable="true" type="tns:attivitaEconomica" />
+<xs:element minOccurs="0" name="dataUltAggiornamSILP" type="xs:string" />
+<xs:element minOccurs="0" name="descrCPI" type="xs:string" />
+<xs:element minOccurs="0" name="descrClasseAmpiezza" type="xs:string" />
+<xs:element minOccurs="0" name="descrRappLavoroPrevalente" type="xs:string" />
+<xs:element minOccurs="0" name="descrStatoSede" type="xs:string" />
+<xs:element minOccurs="0" name="descrTipoSedeAAEP" type="xs:string" />
+<xs:element minOccurs="0" name="descrUbicazioneSede" type="xs:string" />
+<xs:element minOccurs="0" name="flgMovimentazRappLavoro" type="xs:string" />
+<xs:element minOccurs="0" name="flgObbligoProspDisab" type="xs:string" />
+<xs:element minOccurs="0" name="flgUbicazioneSede" type="xs:string" />
+<xs:element minOccurs="0" name="idRappLavoroPrevalente" type="xs:string" />
+<xs:element minOccurs="0" name="localita" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="referenti" nillable="true" type="tns:referenteSILP" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="impresaINFOC">
+<xs:complexContent>
+<xs:extension base="tns:impresa">
+<xs:sequence>
+<xs:element minOccurs="0" name="annoDenunciaAddetti" type="xs:string" />
+<xs:element minOccurs="0" name="cessazioneFunzioneSedeLegale" type="tns:cessazione" />
+<xs:element minOccurs="0" name="codFonte" type="xs:string" />
+<xs:element minOccurs="0" name="datoCostitutivo" type="tns:datoCostitutivo" />
+<xs:element minOccurs="0" name="descrIndicStatoAttiv" type="xs:string" />
+<xs:element minOccurs="0" name="descrIndicTrasfSede" type="xs:string" />
+<xs:element minOccurs="0" name="flagLocalizzazionePiemonte" type="xs:string" />
+<xs:element minOccurs="0" name="flgAggiornamento" type="xs:string" />
+<xs:element minOccurs="0" name="impresaCessata" type="xs:string" />
+<xs:element minOccurs="0" name="indicStatoAttiv" type="xs:string" />
+<xs:element minOccurs="0" name="indicTrasfSede" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="listaPersone" nillable="true" type="tns:persona" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="listaProcConcors" nillable="true" type="tns:procConcors" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="listaSezSpecInfoc" nillable="true" type="tns:sezioneSpeciale" />
+<xs:element minOccurs="0" name="numAddettiFam" type="xs:string" />
+<xs:element minOccurs="0" name="numAddettiSubord" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="testoOggettoSociale" nillable="true" type="xs:string" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="datoCostitutivo">
+<xs:sequence>
+<xs:element minOccurs="0" name="capitSocDeliberato" type="xs:string" />
+<xs:element minOccurs="0" name="capitSocSottoscr" type="xs:string" />
+<xs:element minOccurs="0" name="capitSocVersato" type="xs:string" />
+<xs:element minOccurs="0" name="capitaleSocDelib" type="xs:string" />
+<xs:element minOccurs="0" name="capitalesocVers" type="xs:string" />
+<xs:element minOccurs="0" name="codDurataCS" type="xs:string" />
+<xs:element minOccurs="0" name="codFormaAmministr" type="xs:string" />
+<xs:element minOccurs="0" name="codTipoAtto" type="xs:string" />
+<xs:element minOccurs="0" name="codTipoConferim" type="xs:string" />
+<xs:element minOccurs="0" name="dataCostituzione" type="xs:string" />
+<xs:element minOccurs="0" name="dataFineEsAmmt" type="xs:string" />
+<xs:element minOccurs="0" name="dataFondazione" type="xs:string" />
+<xs:element minOccurs="0" name="dataIniEsAmmt" type="xs:string" />
+<xs:element minOccurs="0" name="dataRegAtto" type="xs:string" />
+<xs:element minOccurs="0" name="dataScadenzaPrimoEsercizio" type="xs:string" />
+<xs:element minOccurs="0" name="dataTermineSocieta" type="xs:string" />
+<xs:element minOccurs="0" name="descrFormaAmministr" type="xs:string" />
+<xs:element minOccurs="0" name="descrProvUffReg" type="xs:string" />
+<xs:element minOccurs="0" name="descrSiglaProvNotaio" type="xs:string" />
+<xs:element minOccurs="0" name="descrTipoAtto" type="xs:string" />
+<xs:element minOccurs="0" name="descrTipoConferim" type="xs:string" />
+<xs:element minOccurs="0" name="flagDurataIllimitata" type="xs:string" />
+<xs:element minOccurs="0" name="localitaNotaio" type="xs:string" />
+<xs:element minOccurs="0" name="notaio" type="xs:string" />
+<xs:element minOccurs="0" name="numAnniEsAmmt" type="xs:string" />
+<xs:element minOccurs="0" name="numAzioniCapitSociale" type="xs:string" />
+<xs:element minOccurs="0" name="numMaxMembriCS" type="xs:string" />
+<xs:element minOccurs="0" name="numMembriCSCarica" type="xs:string" />
+<xs:element minOccurs="0" name="numMinMembriCS" type="xs:string" />
+<xs:element minOccurs="0" name="numRegAtto" type="xs:string" />
+<xs:element minOccurs="0" name="numRepertorio" type="xs:string" />
+<xs:element minOccurs="0" name="numSoci" type="xs:string" />
+<xs:element minOccurs="0" name="numSociCarica" type="xs:string" />
+<xs:element minOccurs="0" name="scadenzaEsSucc" type="xs:string" />
+<xs:element minOccurs="0" name="siglaProvNotaio" type="xs:string" />
+<xs:element minOccurs="0" name="siglaProvUffRegistro" type="xs:string" />
+<xs:element minOccurs="0" name="totFondoConsortE" type="xs:string" />
+<xs:element minOccurs="0" name="totFondoConsortile" type="xs:string" />
+<xs:element minOccurs="0" name="totQuoteCapitSoc" type="xs:string" />
+<xs:element minOccurs="0" name="totQuoteCapitSocE" type="xs:string" />
+<xs:element minOccurs="0" name="ufficioRegistro" type="xs:string" />
+<xs:element minOccurs="0" name="valAzioniCapitSoc" type="xs:string" />
+<xs:element minOccurs="0" name="valoreAzioniCapitSoc" type="xs:string" />
+<xs:element minOccurs="0" name="valutaCapitSociale" type="xs:string" />
+<xs:element minOccurs="0" name="valutaCapitale" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="procConcors">
+<xs:sequence>
+<xs:element minOccurs="0" name="codAtto" type="xs:string" />
+<xs:element minOccurs="0" name="codLiquidazione" type="xs:string" />
+<xs:element minOccurs="0" name="dataAperturaProc" type="xs:string" />
+<xs:element minOccurs="0" name="dataChiusuraLiquidaz" type="xs:string" />
+<xs:element minOccurs="0" name="dataEsecConcordPrevent" type="xs:string" />
+<xs:element minOccurs="0" name="dataFineLiquidaz" type="xs:string" />
+<xs:element minOccurs="0" name="dataRegistroAtto" type="xs:string" />
+<xs:element minOccurs="0" name="dataRevocalLiquidaz" type="xs:string" />
+<xs:element minOccurs="0" name="descIndicatEsecutAtto" type="xs:string" />
+<xs:element minOccurs="0" name="descrAltreIndicazioni" type="xs:string" />
+<xs:element minOccurs="0" name="descrCodAtto" type="xs:string" />
+<xs:element minOccurs="0" name="descrNotaio" type="xs:string" />
+<xs:element minOccurs="0" name="descrTribunale" type="xs:string" />
+<xs:element minOccurs="0" name="idAAEPAzienda" type="xs:string" />
+<xs:element minOccurs="0" name="idAAEPFonteDato" type="xs:string" />
+<xs:element minOccurs="0" name="localRegistroAtto" type="xs:string" />
+<xs:element minOccurs="0" name="numRestistrAtto" type="xs:string" />
+<xs:element minOccurs="0" name="progrLiquidazione" type="xs:string" />
+<xs:element minOccurs="0" name="siglaProvRegAtto" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="sezioneSpeciale">
+<xs:sequence>
+<xs:element minOccurs="0" name="codAlbo" type="xs:string" />
+<xs:element minOccurs="0" name="codSezione" type="xs:string" />
+<xs:element minOccurs="0" name="codiceSezSpec" type="xs:string" />
+<xs:element minOccurs="0" name="dataFine" type="xs:string" />
+<xs:element minOccurs="0" name="dataInizio" type="xs:string" />
+<xs:element minOccurs="0" name="flColtDir" type="xs:string" />
+<xs:element minOccurs="0" name="idAzienda" type="xs:string" />
+<xs:element minOccurs="0" name="idFonteDato" type="xs:string" />
+<xs:element minOccurs="0" name="idSezioneSpeciale" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="aziendaAAEP">
+<xs:complexContent>
+<xs:extension base="tns:impresa">
+<xs:sequence>
+<xs:element minOccurs="0" name="dataCostituzione" type="xs:string" />
+<xs:element minOccurs="0" name="descrStatoAttiv" type="xs:string" />
+<xs:element minOccurs="0" name="idStatoAttiv" type="xs:string" />
+<xs:element minOccurs="0" name="oggettoSociale" type="xs:string" />
+<xs:element minOccurs="0" name="rappresentanteLegale" type="tns:rappresentanteLegale" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="rappresentanteLegale">
+<xs:sequence>
+<xs:element minOccurs="0" name="cap" type="xs:string" />
+<xs:element minOccurs="0" name="codComuneNascita" type="xs:string" />
+<xs:element minOccurs="0" name="codComuneResidenza" type="xs:string" />
+<xs:element minOccurs="0" name="codiceFiscale" type="xs:string" />
+<xs:element minOccurs="0" name="cognome" type="xs:string" />
+<xs:element minOccurs="0" name="dataNascita" type="xs:string" />
+<xs:element minOccurs="0" name="descrComuneNascita" type="xs:string" />
+<xs:element minOccurs="0" name="descrComuneResidenza" type="xs:string" />
+<xs:element minOccurs="0" name="indirizzo" type="xs:string" />
+<xs:element minOccurs="0" name="nome" type="xs:string" />
+<xs:element minOccurs="0" name="nomeVia" type="xs:string" />
+<xs:element minOccurs="0" name="numeroCivico" type="xs:string" />
+<xs:element minOccurs="0" name="sesso" type="xs:string" />
+<xs:element minOccurs="0" name="tipoVia" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="aziendaSILP">
+<xs:complexContent>
+<xs:extension base="tns:impresa">
+<xs:sequence>
+<xs:element minOccurs="0" name="annoRiferimentoNumDipendenti" type="xs:string" />
+<xs:element minOccurs="0" name="codCCNLMinistero" type="xs:string" />
+<xs:element minOccurs="0" name="codCCNLSILP" type="xs:string" />
+<xs:element minOccurs="0" name="codNaturaGiuridicaSILP" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="codiciATECOSILP" nillable="true" type="tns:attivitaEconomica" />
+<xs:element minOccurs="0" name="dataAcquisizioneAAEP" type="xs:string" />
+<xs:element minOccurs="0" name="dataAggiornamGeneraleAzienda" type="xs:string" />
+<xs:element minOccurs="0" name="dataAggiornamentoSILP" type="xs:string" />
+<xs:element minOccurs="0" name="dataInvio" type="xs:string" />
+<xs:element minOccurs="0" name="descrCCNLMinistero" type="xs:string" />
+<xs:element minOccurs="0" name="descrCCNLSILP" type="xs:string" />
+<xs:element minOccurs="0" name="descrNaturaGiuridicaSILP" type="xs:string" />
+<xs:element minOccurs="0" name="flgAziendaArtigiana" type="xs:string" />
+<xs:element minOccurs="0" name="idProspDisabRiferim" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="listaProspDisab" nillable="true" type="tns:prospettoInformativoDisabile" />
+<xs:element minOccurs="0" name="numDipendenti" type="xs:string" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="prospettoInformativoDisabile">
+<xs:sequence>
+<xs:element minOccurs="0" name="annoRiferimento" type="xs:string" />
+<xs:element minOccurs="0" name="controparte" type="xs:string" />
+<xs:element minOccurs="0" name="dataClassificazione" type="xs:string" />
+<xs:element minOccurs="0" name="dataInvio" type="xs:string" />
+<xs:element minOccurs="0" name="dataProtocollo" type="xs:string" />
+<xs:element minOccurs="0" name="descrTipoProspDisab" type="xs:string" />
+<xs:element minOccurs="0" name="idProspDisab" type="xs:string" />
+<xs:element minOccurs="0" name="numClassificazione" type="xs:string" />
+<xs:element minOccurs="0" name="numProtocollo" type="xs:string" />
+<xs:element minOccurs="0" name="siglaProv" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="operatoreFormazioneProfessionale">
+<xs:complexContent>
+<xs:extension base="tns:impresa">
+<xs:sequence>
+<xs:element minOccurs="0" name="codGruppoOperatore" type="xs:string" />
+<xs:element minOccurs="0" name="codOperatore" type="xs:string" />
+<xs:element minOccurs="0" name="codTipoOperatore" type="xs:string" />
+<xs:element minOccurs="0" name="descrGruppoOperatore" type="xs:string" />
+<xs:element minOccurs="0" name="descrTipoOperatore" type="xs:string" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="bilancio">
+<xs:sequence>
+<xs:element minOccurs="0" name="capitaleSociale" type="xs:string" />
+<xs:element minOccurs="0" name="codiceFiscale" type="xs:string" />
+<xs:element minOccurs="0" name="dataAggiornamento" type="xs:string" />
+<xs:element minOccurs="0" name="denominazione" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="dettagliBilancio" nillable="true" type="tns:rigoBilancio" />
+<xs:element minOccurs="0" name="iscrizioneAlboCOOP" type="xs:string" />
+<xs:element minOccurs="0" name="numIscrizioneCCIAA" type="xs:string" />
+<xs:element minOccurs="0" name="numIscrizioneRegistroImprese" type="xs:string" />
+<xs:element minOccurs="0" name="numREA" type="xs:string" />
+<xs:element minOccurs="0" name="partitaIVA" type="xs:string" />
+<xs:element minOccurs="0" name="ubicazione" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="rigoBilancio">
+<xs:sequence>
+<xs:element minOccurs="0" name="annoAttuale" type="xs:string" />
+<xs:element minOccurs="0" name="annoPrecedente" type="xs:string" />
+<xs:element minOccurs="0" name="livelloIndentazione" type="xs:string" />
+<xs:element minOccurs="0" name="tipoRigo" type="xs:string" />
+<xs:element minOccurs="0" name="voce" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="naturaGiuridica">
+<xs:sequence>
+<xs:element minOccurs="0" name="codiceNaturaGiuridica" type="xs:string" />
+<xs:element minOccurs="0" name="descrizioneNaturaGiuridica" type="xs:string" />
+<xs:element minOccurs="0" name="idNaturaGiuridica" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="comune">
+<xs:sequence>
+<xs:element minOccurs="0" name="descComune" type="xs:string" />
+<xs:element minOccurs="0" name="idComune" type="xs:string" />
+<xs:element minOccurs="0" name="istatComune" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="provincia">
+<xs:sequence>
+<xs:element minOccurs="0" name="descProvincia" type="xs:string" />
+<xs:element minOccurs="0" name="istatProvincia" type="xs:string" />
+<xs:element minOccurs="0" name="siglaProvincia" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:simpleType name="tipologiaVariazioneAnagrafica">
+<xs:restriction base="xs:string">
+<xs:enumeration value="VARIAZIONE_DENOMINAZIONE" />
+<xs:enumeration value="VARIAZIONE_NATURA_GIURIDICA" />
+<xs:enumeration value="VARIAZIONE_STATO_ATTIVITA" />
+<xs:enumeration value="VARIAZIONE_SEDE_LEGALE" />
+<xs:enumeration value="VARIAZIONE_RAPPRESENTANTE_LEGALE_AAEP" />
+<xs:enumeration value="VARIAZIONE_LEGALI_RAPPRESENTANTI_INFOCAMERE" />
+<xs:enumeration value="CAMBIO_FONTE" />
+<xs:enumeration value="VARIAZIONE_CESSAZIONE_IMPRESA" />
+<xs:enumeration value="PRIMO_INSERIMENTO_IN_AAEP" />
+<xs:enumeration value="VARIAZIONE_PROC_CONCORSUALI_INFOCAMERE" />
+<xs:enumeration value="VARIAZIONE_DELLE_SEDI_ESCLUSO_SEDE_LEGALE" />
+<xs:enumeration value="VARIAZIONE_CESSAZIONE_SEDE_LEGALE" />
+<xs:enumeration value="VARIAZIONE_CESSAZIONE_DELLE_SEDI_ESCLUSO_SEDE_LEGALE" />
+<xs:enumeration value="IMPRESA_NON_PERVENUTA_INFOCAMERE" />
+<xs:enumeration value="VARIAZIONE_POSIZIONE_REA" />
+<xs:enumeration value="VARIAZIONE_CODICE_FISCALE" />
+<xs:enumeration value="CESSAZIONE_LOCALIZZAZIONE_IN_PIEMONTE" />
+<xs:enumeration value="RIPRISTINO_LOCALIZZAZIONE_IN_PIEMONTE" />
+<xs:enumeration value="VARIAZIONE_INDIRIZZO_SEDE" />
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="tipologiaFonte">
+<xs:restriction base="xs:string">
+<xs:enumeration value="INFOC" />
+<xs:enumeration value="AAEP" />
+<xs:enumeration value="INAIL" />
+<xs:enumeration value="TRIBUTI" />
+<xs:enumeration value="SILP" />
+<xs:enumeration value="FP" />
+<xs:enumeration value="SIAP" />
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="tipologiaSede">
+<xs:restriction base="xs:string">
+<xs:enumeration value="SEDE_LEGALE" />
+<xs:enumeration value="UNITA_LOCALE" />
+<xs:enumeration value="SEDE_CORRISPONDENZA" />
+<xs:enumeration value="DOMICILIO_FISCALE" />
+<xs:enumeration value="UNITA_TECNICA" />
+<xs:enumeration value="SEDE_SECONDARIA" />
+<xs:enumeration value="SEDE_OCCASIONALE" />
+<xs:enumeration value="SEDE_AMMINISTRATIVA" />
+<xs:enumeration value="SEDE_NON_CODIFICATA_ALLA_FONTE" />
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="statoCessazione">
+<xs:restriction base="xs:string">
+<xs:enumeration value="NON_CESSATA" />
+<xs:enumeration value="CESSATA" />
+<xs:enumeration value="NON_DEFINITO" />
+</xs:restriction>
+</xs:simpleType>
+<xs:element name="GAEPException" type="tns:GAEPException" />
+<xs:complexType name="GAEPException">
+<xs:sequence>
+<xs:element name="nestedExcClassName" nillable="true" type="xs:string" />
+<xs:element name="stackTraceMessage" nillable="true" type="xs:string" />
+<xs:element name="nestedExcMsg" nillable="true" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="UserException" type="tns:UserException" />
+<xs:complexType name="UserException">
+<xs:sequence>
+<xs:element name="nestedExcClassName" nillable="true" type="xs:string" />
+<xs:element name="stackTraceMessage" nillable="true" type="xs:string" />
+<xs:element name="nestedExcMsg" nillable="true" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="TAVTException" type="tns:TAVTException" />
+<xs:complexType name="TAVTException">
+<xs:sequence>
+<xs:element name="nestedExcClassName" nillable="true" type="xs:string" />
+<xs:element name="stackTraceMessage" nillable="true" type="xs:string" />
+<xs:element name="nestedExcMsg" nillable="true" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="UnrecoverableException" type="tns:UnrecoverableException" />
+<xs:complexType name="UnrecoverableException">
+<xs:sequence>
+<xs:element name="nestedExcClassName" nillable="true" type="xs:string" />
+<xs:element name="stackTraceMessage" nillable="true" type="xs:string" />
+<xs:element name="nestedExcMsg" nillable="true" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="SystemException" type="tns:SystemException" />
+<xs:complexType name="SystemException">
+<xs:sequence>
+<xs:element name="nestedExcClassName" nillable="true" type="xs:string" />
+<xs:element name="stackTraceMessage" nillable="true" type="xs:string" />
+<xs:element name="nestedExcMsg" nillable="true" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="CSIException" type="tns:CSIException" />
+<xs:complexType name="CSIException">
+<xs:sequence>
+<xs:element name="nestedExcClassName" nillable="true" type="xs:string" />
+<xs:element name="stackTraceMessage" nillable="true" type="xs:string" />
+<xs:element name="nestedExcMsg" nillable="true" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="AAEPException" type="tns:AAEPException" />
+<xs:complexType name="AAEPException">
+<xs:sequence>
+<xs:element name="nestedExcClassName" nillable="true" type="xs:string" />
+<xs:element name="stackTraceMessage" nillable="true" type="xs:string" />
+<xs:element name="nestedExcMsg" nillable="true" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getElencoCodiciAteco" type="tns:getElencoCodiciAteco" />
+<xs:complexType name="getElencoCodiciAteco">
+<xs:sequence>
+<xs:element minOccurs="0" name="utente" type="tns:utente" />
+<xs:element minOccurs="0" name="annoRiferimento" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getElencoCodiciAtecoResponse" type="tns:getElencoCodiciAtecoResponse" />
+<xs:complexType name="getElencoCodiciAtecoResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:attivitaEconomica" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getElencoRegioni" type="tns:getElencoRegioni" />
+<xs:complexType name="getElencoRegioni">
+<xs:sequence>
+<xs:element minOccurs="0" name="utente" type="tns:utente" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getElencoRegioniResponse" type="tns:getElencoRegioniResponse" />
+<xs:complexType name="getElencoRegioniResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:regione" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="cercaPersoneInfoc" type="tns:cercaPersoneInfoc" />
+<xs:complexType name="cercaPersoneInfoc">
+<xs:sequence>
+<xs:element minOccurs="0" name="utente" type="tns:utente" />
+<xs:element minOccurs="0" name="codiceFiscaleAzienda" type="xs:string" />
+<xs:element minOccurs="0" name="soloRappresentantiLegali" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="cercaPersoneInfocResponse" type="tns:cercaPersoneInfocResponse" />
+<xs:complexType name="cercaPersoneInfocResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:persona" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="cercaVariazioniAnagrafiche" type="tns:cercaVariazioniAnagrafiche" />
+<xs:complexType name="cercaVariazioniAnagrafiche">
+<xs:sequence>
+<xs:element minOccurs="0" name="utente" type="tns:utente" />
+<xs:element minOccurs="0" name="codiceFiscale" type="xs:string" />
+<xs:element minOccurs="0" name="dataInizioPeriodo" type="xs:string" />
+<xs:element minOccurs="0" name="dataFinePeriodo" type="xs:string" />
+<xs:element minOccurs="0" name="tipologiaVariazioneAnagrafica" type="tns:tipologiaVariazioneAnagrafica" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="cercaVariazioniAnagraficheResponse" type="tns:cercaVariazioniAnagraficheResponse" />
+<xs:complexType name="cercaVariazioniAnagraficheResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:variazioneAnagrafica" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getDettaglioImpresa" type="tns:getDettaglioImpresa" />
+<xs:complexType name="getDettaglioImpresa">
+<xs:sequence>
+<xs:element minOccurs="0" name="utente" type="tns:utente" />
+<xs:element minOccurs="0" name="fonte" type="xs:string" />
+<xs:element minOccurs="0" name="codiceFiscale" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getDettaglioImpresaResponse" type="tns:getDettaglioImpresaResponse" />
+<xs:complexType name="getDettaglioImpresaResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:impresa" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getDettaglioPersonaInfoc" type="tns:getDettaglioPersonaInfoc" />
+<xs:complexType name="getDettaglioPersonaInfoc">
+<xs:sequence>
+<xs:element minOccurs="0" name="utente" type="tns:utente" />
+<xs:element minOccurs="0" name="persona" type="tns:persona" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getDettaglioPersonaInfocResponse" type="tns:getDettaglioPersonaInfocResponse" />
+<xs:complexType name="getDettaglioPersonaInfocResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:persona" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getBilancioAzienda" type="tns:getBilancioAzienda" />
+<xs:complexType name="getBilancioAzienda">
+<xs:sequence>
+<xs:element minOccurs="0" name="utente" type="tns:utente" />
+<xs:element minOccurs="0" name="idAzienda" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getBilancioAziendaResponse" type="tns:getBilancioAziendaResponse" />
+<xs:complexType name="getBilancioAziendaResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:bilancio" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getElencoNatureGiuridiche" type="tns:getElencoNatureGiuridiche" />
+<xs:complexType name="getElencoNatureGiuridiche">
+<xs:sequence>
+<xs:element minOccurs="0" name="utente" type="tns:utente" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getElencoNatureGiuridicheResponse" type="tns:getElencoNatureGiuridicheResponse" />
+<xs:complexType name="getElencoNatureGiuridicheResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:naturaGiuridica" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getElencoComuniInProvincia" type="tns:getElencoComuniInProvincia" />
+<xs:complexType name="getElencoComuniInProvincia">
+<xs:sequence>
+<xs:element minOccurs="0" name="utente" type="tns:utente" />
+<xs:element minOccurs="0" name="codIstatProvincia" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getElencoComuniInProvinciaResponse" type="tns:getElencoComuniInProvinciaResponse" />
+<xs:complexType name="getElencoComuniInProvinciaResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:comune" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getDettaglioImpresa2" type="tns:getDettaglioImpresa2" />
+<xs:complexType name="getDettaglioImpresa2">
+<xs:sequence>
+<xs:element minOccurs="0" name="utente" type="tns:utente" />
+<xs:element minOccurs="0" name="fonte" type="xs:string" />
+<xs:element minOccurs="0" name="codiceFiscale" type="xs:string" />
+<xs:element minOccurs="0" name="statoCessSEDE" type="xs:string" />
+<xs:element minOccurs="0" name="siglaProvCCIAA" type="xs:string" />
+<xs:element minOccurs="0" name="numIscrizREA" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getDettaglioImpresa2Response" type="tns:getDettaglioImpresa2Response" />
+<xs:complexType name="getDettaglioImpresa2Response">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:impresa" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getElencoProvinceInRegione" type="tns:getElencoProvinceInRegione" />
+<xs:complexType name="getElencoProvinceInRegione">
+<xs:sequence>
+<xs:element minOccurs="0" name="utente" type="tns:utente" />
+<xs:element minOccurs="0" name="codIstatRegione" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getElencoProvinceInRegioneResponse" type="tns:getElencoProvinceInRegioneResponse" />
+<xs:complexType name="getElencoProvinceInRegioneResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:provincia" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="cercaImprese" type="tns:cercaImprese" />
+<xs:complexType name="cercaImprese">
+<xs:sequence>
+<xs:element minOccurs="0" name="utente" type="tns:utente" />
+<xs:element minOccurs="0" name="fonte" type="tns:tipologiaFonte" />
+<xs:element minOccurs="0" name="statoCessazione" type="tns:statoCessazione" />
+<xs:element minOccurs="0" name="codiceFiscale" type="xs:string" />
+<xs:element minOccurs="0" name="codiceFiscaleLike" type="xs:boolean" />
+<xs:element minOccurs="0" name="ragioneSociale" type="xs:string" />
+<xs:element minOccurs="0" name="ragioneSocialeLike" type="xs:boolean" />
+<xs:element minOccurs="0" name="escapeCaratteriJolly" type="xs:boolean" />
+<xs:element minOccurs="0" name="codiceAteco" type="xs:string" />
+<xs:element minOccurs="0" name="annoAtecoDiRiferimento" type="xs:int" />
+<xs:element minOccurs="0" name="codiceFiscalePersona" type="xs:string" />
+<xs:element minOccurs="0" name="codiceNaturaGiuridica" type="xs:string" />
+<xs:element minOccurs="0" name="tipologiaSede" type="tns:tipologiaSede" />
+<xs:element minOccurs="0" name="siglaProvincia" type="xs:string" />
+<xs:element minOccurs="0" name="codiceIstatComune" type="xs:string" />
+<xs:element minOccurs="0" name="localita" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="cercaImpreseResponse" type="tns:cercaImpreseResponse" />
+<xs:complexType name="cercaImpreseResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:impresa" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getDettaglioSede" type="tns:getDettaglioSede" />
+<xs:complexType name="getDettaglioSede">
+<xs:sequence>
+<xs:element minOccurs="0" name="utente" type="tns:utente" />
+<xs:element minOccurs="0" name="fonte" type="tns:tipologiaFonte" />
+<xs:element minOccurs="0" name="sede" type="tns:sede" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getDettaglioSedeResponse" type="tns:getDettaglioSedeResponse" />
+<xs:complexType name="getDettaglioSedeResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:sede" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getDettaglioPersonaInfoc">
+    <wsdl:part element="tns:getDettaglioPersonaInfoc" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TAVTException">
+    <wsdl:part element="tns:TAVTException" name="TAVTException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UnrecoverableException">
+    <wsdl:part element="tns:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getBilancioAziendaResponse">
+    <wsdl:part element="tns:getBilancioAziendaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDettaglioPersonaInfocResponse">
+    <wsdl:part element="tns:getDettaglioPersonaInfocResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getElencoRegioniResponse">
+    <wsdl:part element="tns:getElencoRegioniResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getBilancioAzienda">
+    <wsdl:part element="tns:getBilancioAzienda" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getElencoProvinceInRegioneResponse">
+    <wsdl:part element="tns:getElencoProvinceInRegioneResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getElencoNatureGiuridiche">
+    <wsdl:part element="tns:getElencoNatureGiuridiche" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cercaImprese">
+    <wsdl:part element="tns:cercaImprese" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getElencoCodiciAteco">
+    <wsdl:part element="tns:getElencoCodiciAteco" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDettaglioImpresa">
+    <wsdl:part element="tns:getDettaglioImpresa" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getElencoComuniInProvincia">
+    <wsdl:part element="tns:getElencoComuniInProvincia" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cercaImpreseResponse">
+    <wsdl:part element="tns:cercaImpreseResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getElencoCodiciAtecoResponse">
+    <wsdl:part element="tns:getElencoCodiciAtecoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDettaglioSede">
+    <wsdl:part element="tns:getDettaglioSede" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cercaVariazioniAnagrafiche">
+    <wsdl:part element="tns:cercaVariazioniAnagrafiche" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getElencoNatureGiuridicheResponse">
+    <wsdl:part element="tns:getElencoNatureGiuridicheResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getElencoProvinceInRegione">
+    <wsdl:part element="tns:getElencoProvinceInRegione" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDettaglioImpresaResponse">
+    <wsdl:part element="tns:getDettaglioImpresaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GAEPException">
+    <wsdl:part element="tns:GAEPException" name="GAEPException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cercaVariazioniAnagraficheResponse">
+    <wsdl:part element="tns:cercaVariazioniAnagraficheResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cercaPersoneInfocResponse">
+    <wsdl:part element="tns:cercaPersoneInfocResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UserException">
+    <wsdl:part element="tns:UserException" name="UserException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDettaglioSedeResponse">
+    <wsdl:part element="tns:getDettaglioSedeResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDettaglioImpresa2Response">
+    <wsdl:part element="tns:getDettaglioImpresa2Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDettaglioImpresa2">
+    <wsdl:part element="tns:getDettaglioImpresa2" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemException">
+    <wsdl:part element="tns:SystemException" name="SystemException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AAEPException">
+    <wsdl:part element="tns:AAEPException" name="AAEPException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getElencoRegioni">
+    <wsdl:part element="tns:getElencoRegioni" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cercaPersoneInfoc">
+    <wsdl:part element="tns:cercaPersoneInfoc" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getElencoComuniInProvinciaResponse">
+    <wsdl:part element="tns:getElencoComuniInProvinciaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CSIException">
+    <wsdl:part element="tns:CSIException" name="CSIException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="OrchestratoreIntf">
+    <wsdl:operation name="getElencoCodiciAteco">
+      <wsdl:input message="tns:getElencoCodiciAteco" name="getElencoCodiciAteco">
+    </wsdl:input>
+      <wsdl:output message="tns:getElencoCodiciAtecoResponse" name="getElencoCodiciAtecoResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:UserException" name="UserException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:GAEPException" name="GAEPException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getElencoRegioni">
+      <wsdl:input message="tns:getElencoRegioni" name="getElencoRegioni">
+    </wsdl:input>
+      <wsdl:output message="tns:getElencoRegioniResponse" name="getElencoRegioniResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:UserException" name="UserException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:TAVTException" name="TAVTException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cercaPersoneInfoc">
+      <wsdl:input message="tns:cercaPersoneInfoc" name="cercaPersoneInfoc">
+    </wsdl:input>
+      <wsdl:output message="tns:cercaPersoneInfocResponse" name="cercaPersoneInfocResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:UserException" name="UserException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cercaVariazioniAnagrafiche">
+      <wsdl:input message="tns:cercaVariazioniAnagrafiche" name="cercaVariazioniAnagrafiche">
+    </wsdl:input>
+      <wsdl:output message="tns:cercaVariazioniAnagraficheResponse" name="cercaVariazioniAnagraficheResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:UserException" name="UserException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getDettaglioImpresa">
+      <wsdl:input message="tns:getDettaglioImpresa" name="getDettaglioImpresa">
+    </wsdl:input>
+      <wsdl:output message="tns:getDettaglioImpresaResponse" name="getDettaglioImpresaResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SystemException" name="SystemException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:AAEPException" name="AAEPException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getDettaglioPersonaInfoc">
+      <wsdl:input message="tns:getDettaglioPersonaInfoc" name="getDettaglioPersonaInfoc">
+    </wsdl:input>
+      <wsdl:output message="tns:getDettaglioPersonaInfocResponse" name="getDettaglioPersonaInfocResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:UserException" name="UserException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getBilancioAzienda">
+      <wsdl:input message="tns:getBilancioAzienda" name="getBilancioAzienda">
+    </wsdl:input>
+      <wsdl:output message="tns:getBilancioAziendaResponse" name="getBilancioAziendaResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:UserException" name="UserException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:AAEPException" name="AAEPException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getElencoNatureGiuridiche">
+      <wsdl:input message="tns:getElencoNatureGiuridiche" name="getElencoNatureGiuridiche">
+    </wsdl:input>
+      <wsdl:output message="tns:getElencoNatureGiuridicheResponse" name="getElencoNatureGiuridicheResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:UserException" name="UserException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:GAEPException" name="GAEPException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getElencoComuniInProvincia">
+      <wsdl:input message="tns:getElencoComuniInProvincia" name="getElencoComuniInProvincia">
+    </wsdl:input>
+      <wsdl:output message="tns:getElencoComuniInProvinciaResponse" name="getElencoComuniInProvinciaResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:UserException" name="UserException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:TAVTException" name="TAVTException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getDettaglioImpresa2">
+      <wsdl:input message="tns:getDettaglioImpresa2" name="getDettaglioImpresa2">
+    </wsdl:input>
+      <wsdl:output message="tns:getDettaglioImpresa2Response" name="getDettaglioImpresa2Response">
+    </wsdl:output>
+      <wsdl:fault message="tns:SystemException" name="SystemException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:AAEPException" name="AAEPException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getElencoProvinceInRegione">
+      <wsdl:input message="tns:getElencoProvinceInRegione" name="getElencoProvinceInRegione">
+    </wsdl:input>
+      <wsdl:output message="tns:getElencoProvinceInRegioneResponse" name="getElencoProvinceInRegioneResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:UserException" name="UserException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:TAVTException" name="TAVTException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cercaImprese">
+      <wsdl:input message="tns:cercaImprese" name="cercaImprese">
+    </wsdl:input>
+      <wsdl:output message="tns:cercaImpreseResponse" name="cercaImpreseResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SystemException" name="SystemException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:AAEPException" name="AAEPException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getDettaglioSede">
+      <wsdl:input message="tns:getDettaglioSede" name="getDettaglioSede">
+    </wsdl:input>
+      <wsdl:output message="tns:getDettaglioSedeResponse" name="getDettaglioSedeResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:UserException" name="UserException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:AAEPException" name="AAEPException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OrchestratoreImplServiceSoapBinding" type="tns:OrchestratoreIntf">
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getElencoCodiciAteco">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input name="getElencoCodiciAteco">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getElencoCodiciAtecoResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="UserException">
+        <soap12:fault name="UserException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="GAEPException">
+        <soap12:fault name="GAEPException" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getElencoRegioni">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input name="getElencoRegioni">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getElencoRegioniResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="UserException">
+        <soap12:fault name="UserException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="TAVTException">
+        <soap12:fault name="TAVTException" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cercaPersoneInfoc">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input name="cercaPersoneInfoc">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="cercaPersoneInfocResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="UserException">
+        <soap12:fault name="UserException" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cercaVariazioniAnagrafiche">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input name="cercaVariazioniAnagrafiche">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="cercaVariazioniAnagraficheResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="UserException">
+        <soap12:fault name="UserException" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getDettaglioImpresa">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input name="getDettaglioImpresa">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getDettaglioImpresaResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <soap12:fault name="SystemException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <soap12:fault name="CSIException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap12:fault name="UnrecoverableException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="AAEPException">
+        <soap12:fault name="AAEPException" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getDettaglioPersonaInfoc">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input name="getDettaglioPersonaInfoc">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getDettaglioPersonaInfocResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="UserException">
+        <soap12:fault name="UserException" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getBilancioAzienda">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input name="getBilancioAzienda">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getBilancioAziendaResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="UserException">
+        <soap12:fault name="UserException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="AAEPException">
+        <soap12:fault name="AAEPException" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getElencoComuniInProvincia">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input name="getElencoComuniInProvincia">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getElencoComuniInProvinciaResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="UserException">
+        <soap12:fault name="UserException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="TAVTException">
+        <soap12:fault name="TAVTException" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getElencoNatureGiuridiche">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input name="getElencoNatureGiuridiche">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getElencoNatureGiuridicheResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="UserException">
+        <soap12:fault name="UserException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="GAEPException">
+        <soap12:fault name="GAEPException" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getDettaglioImpresa2">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input name="getDettaglioImpresa2">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getDettaglioImpresa2Response">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <soap12:fault name="SystemException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <soap12:fault name="CSIException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap12:fault name="UnrecoverableException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="AAEPException">
+        <soap12:fault name="AAEPException" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cercaImprese">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input name="cercaImprese">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="cercaImpreseResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <soap12:fault name="SystemException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <soap12:fault name="CSIException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap12:fault name="UnrecoverableException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="AAEPException">
+        <soap12:fault name="AAEPException" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getElencoProvinceInRegione">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input name="getElencoProvinceInRegione">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getElencoProvinceInRegioneResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="UserException">
+        <soap12:fault name="UserException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="TAVTException">
+        <soap12:fault name="TAVTException" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getDettaglioSede">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input name="getDettaglioSede">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getDettaglioSedeResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="UserException">
+        <soap12:fault name="UserException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="AAEPException">
+        <soap12:fault name="AAEPException" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OrchestratoreImplService">
+    <wsdl:port binding="tns:OrchestratoreImplServiceSoapBinding" name="OrchestratoreImplPort">
+      <soap:address location="http://applogic.reteunitaria.piemonte.it/aaeporch/OrchestratoreService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

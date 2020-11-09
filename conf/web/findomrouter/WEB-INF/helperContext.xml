@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--  *************************************************************************
+ * Copyright Regione Piemonte - 2020
+ * SPDX-License-Identifier: EUPL-1.2-or-later
+ *****************************************************************************  -->
+ <beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+    >
+	
+	<!-- router helper-->
+	
+	<bean id="routerHelperTarget" class="it.csi.findom.findomrouter.business.helper.impl.RouterHelperImpl">
+		<property name="useCache" value="true"></property>
+		<property name="finderRouterMapper" ref="finderRouterMapper"></property>
+	</bean>
+	
+	 
+	<bean id="routerHelper" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="it.csi.findom.findomrouter.business.helper.RouterHelper" />
+		<property name="target" ref="routerHelperTarget" />
+		<property name="interceptorNames">
+			<list>
+				<value>logInterceptor</value>
+				<value>paramInterceptor</value>
+				<value>stopWatchInterceptor</value>
+			</list>
+		</property>
+	</bean>
+	
+</beans>

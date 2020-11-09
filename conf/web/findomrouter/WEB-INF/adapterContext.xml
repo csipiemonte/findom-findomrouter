@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  *************************************************************************
+ * Copyright Regione Piemonte - 2020
+ * SPDX-License-Identifier: EUPL-1.2-or-later
+ *****************************************************************************  -->
+ <beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+   
+   <bean id="org.dozer.Mapper" class="org.dozer.DozerBeanMapper">
+	    <property name="mappingFiles">
+	        <list>
+	            <value>dozer-bean-mappings.xml</value>
+	        </list>
+	    </property>
+	</bean>
+  	
+  	<bean id="identitaAdapter" 
+  		class="it.csi.findom.findomrouter.business.adapter.impl.IdentitaAdapter">
+  		<constructor-arg ref="org.dozer.Mapper" />
+  	</bean>
+  	
+
+</beans>
+	

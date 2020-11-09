@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  *************************************************************************
+ * Copyright Regione Piemonte - 2020
+ * SPDX-License-Identifier: EUPL-1.2-or-later
+ *****************************************************************************  -->
+ <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5" >
+<!--web-app xmlns="http://java.sun.com/xml/ns/javaee"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee web-app_3_0.xsd"
+      version="3.0"-->
+     
+      <!-- Make sure that your web.xml is pointing the version="3.0" as above >
+      <session-config>
+        <cookie-config>
+           <http-only>true</http-only>
+	       <path>/@@war.context.name@@</path>
+		   <secure>true</secure>
+		</cookie-config>
+		<tracking-mode>COOKIE</tracking-mode>
+      </session-config-->
+     
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/applicationContext.xml</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>is_local_deploy</param-name>
+		<param-value>@@is_local_deploy@@</param-value>
+	</context-param>
+	<context-param>
+		<param-name>remincl.resource.provider.sp</param-name>
+		<param-value>@@resourceProvider@@</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>portalHead</param-name>
+		<param-value>@@portalHead@@</param-value>
+	</context-param>
+	<context-param>
+		<param-name>portalHeader</param-name>
+		<param-value>@@portalHeader@@</param-value>
+	</context-param>
+	<context-param>
+		<param-name>applicationHeader</param-name>
+		<param-value>@@applicationHeader@@</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>applicationLinkHelpContact</param-name>
+		<param-value>@@applicationLinkHelpContact@@</param-value>
+	</context-param>
+	<context-param>
+		<param-name>portalFooter</param-name>
+		<param-value>@@portalFooter@@</param-value>
+	</context-param>
+	<!-- <context-param> <param-name>prefixStaticResourceCss</param-name> <param-value>@@prefixStaticResourceCss@@</param-value> 
+		</context-param> <context-param> <param-name>prefixStaticResourceJs</param-name> 
+		<param-value>@@prefixStaticResourceJs@@</param-value> </context-param> -->
+	<context-param>
+		<param-name>logoutUrl</param-name>
+		<param-value>@@LOGOUT_URL@@</param-value>
+	</context-param>
+	<context-param>
+		<param-name>urlRouting</param-name>
+		<param-value>@@routerContextName@@</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- ############################################################### 
+		  definizione filter per autentication con shibboleth 
+	     ############################################################### -->
+	<filter>
+		<filter-name>IRIDE ID Adapter</filter-name>
+		<filter-class>it.csi.findom.findomrouter.presentation.filter.IrideIdAdapterFilter</filter-class>
+	</filter>
+
+	
+	<filter-mapping>
+		<filter-name>IRIDE ID Adapter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+	</filter>  
+
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
+	<!-- =====inserito per il mapping di risorse statiche di struts2====== -->
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/struts/*</url-pattern>
+	</filter-mapping>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/jsp/error/error404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/jsp/error/error500.jsp</location>
+	</error-page>
+
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<page-encoding>UTF-8</page-encoding>
+		</jsp-property-group>
+	</jsp-config>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<distributable />
+
+</web-app>

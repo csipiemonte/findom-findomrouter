@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  *************************************************************************
+ * Copyright Regione Piemonte - 2020
+ * SPDX-License-Identifier: EUPL-1.2-or-later
+ *****************************************************************************  -->
+ <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- Insert here your Spring Beans -->
+    
+	<bean id="findomWebDao" class="it.csi.findom.findomrouter.business.servizifindomweb.dao.ServiziFindomWebDaoImpl">
+		<property name="template" ref="namedJdbcTemplateAPP" />
+	</bean>
+	
+	<bean id="namedJdbcTemplateAPP" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="dataSource" />
+	</bean>
+
+	<!--  REGOLE  -->	
+	<bean id="coerenzaCF" class="it.csi.findom.findomrouter.business.regole.CoerenzaCF" >
+		<property name="template" ref="namedJdbcTemplateAPP" />
+	</bean>
+	<bean id="bonusPiemonte" class="it.csi.findom.findomrouter.business.regole.BonusPiemonte" >
+		<property name="template" ref="namedJdbcTemplateAPP" />
+	</bean>
+	<bean id="entiLocaliPiemontesi" class="it.csi.findom.findomrouter.business.regole.EntiLocaliPiemontesi" >
+		<property name="template" ref="namedJdbcTemplateAPP" />
+	</bean>
+	<bean id="soggettoAbilitato" class="it.csi.findom.findomrouter.business.regole.SoggettoAbilitato" >
+		<property name="template" ref="namedJdbcTemplateAPP" />
+	</bean>
+	<bean id="coerenzaCFBeneficiarioCreatore" class="it.csi.findom.findomrouter.business.regole.CoerenzaCFBeneficiarioCreatore" />
+		
+	
+	<!--bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:jboss/findomrouter/jdbc/findomrouterDS" />
+		<property name="proxyInterface" value="javax.sql.DataSource" />
+	</bean-->
+	
+</beans>

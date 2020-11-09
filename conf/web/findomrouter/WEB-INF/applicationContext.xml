@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  *************************************************************************
+ * Copyright Regione Piemonte - 2020
+ * SPDX-License-Identifier: EUPL-1.2-or-later
+ *****************************************************************************  -->
+ <beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+    >
+   
+	<import resource="interceptorContext.xml" />
+	<import resource="utilContext.xml" />
+
+	<import resource="dataSourceContext_jta.xml" />
+	
+	<bean id="applicationContextManager"
+		class="it.csi.util.beanlocatorfactory.SpringApplicationContextManager" />
+	 
+	<!-- lazy-init="false" -->
+
+	<bean id="serviziFindomWeb" class="it.csi.findom.findomrouter.business.servizifindomweb.ServiziFindomWeb">
+		<property name="findomWebDao" ref="findomWebDao"/>
+	</bean>
+	
+	<!-- DB CONFIGURATION AND DAO -->
+	<import resource="serviziFindomWebDao-beans.xml" />
+	
+	<!-- BUSINESS CONFIGURATION -->
+
+    <!-- INTEGRATION CONFIGURATION --> 
+ 	<bean id="aaepDAO" class="it.csi.findom.findomrouter.integration.extservices.aaep.AaepDAOImpl" init-method="init" />
+    <bean id="ipaDAO" class="it.csi.findom.findomrouter.integration.extservices.ipa.IpaDAOImpl" init-method="init" />
+</beans>

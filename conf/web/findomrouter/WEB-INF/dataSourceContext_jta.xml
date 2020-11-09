@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  *************************************************************************
+ * Copyright Regione Piemonte - 2020
+ * SPDX-License-Identifier: EUPL-1.2-or-later
+ *****************************************************************************  -->
+ <beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+     
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:jboss/findomrouter/jdbc/findomrouterDS" />
+		<property name="proxyInterface" value="javax.sql.DataSource" />
+	</bean>
+	
+	
+	<!-- transaction manager -->
+   
+    <tx:annotation-driven transaction-manager="txManager" />
+	
+	<bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager">
+		<property name="transactionManager">
+			<bean class="org.springframework.jndi.JndiObjectFactoryBean">
+				<property name="jndiName" value="java:jboss/TransactionManager" />
+			</bean>
+		</property>
+	</bean>
+
+
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="*" rollback-for="Exception, HelperException"/>
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- AOP sugli helper... -->
+	<aop:config>
+		<aop:pointcut id="userServicePointCut"
+			expression="execution(* it.csi.findom.findomrouter.business.helper.*Helper.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="userServicePointCut" />
+	</aop:config>
+     
+
+</beans>
+	
